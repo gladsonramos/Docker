@@ -97,7 +97,7 @@ const ChatApp = () => {
         {!isUsernameSet ? (
           <>
             <Typography variant="h6" gutterBottom>
-              Defina seu nome de usuário para iniciar:
+              Defina seu nome de usuário para iniciar oiii:
             </Typography>
             <TextField
               fullWidth

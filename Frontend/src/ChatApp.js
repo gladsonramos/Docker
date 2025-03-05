@@ -20,7 +20,7 @@ const ChatApp = () => {
   const [username, setUsername] = useState(""); // Estado para o nome do usuário
   const [isUsernameSet, setIsUsernameSet] = useState(false); // Flag para verificar se o nome já foi definido
 
-  const API_BASE_URL = 'http://54.145.117.35'; // Alterar para o IP quando necessário
+  const API_sBASE_URL = 'http://54.145.117.35'; // Alterar para o IP quando necessário
 
   // Conectar ao WebSocket e recuperar mensagens do servidor
   

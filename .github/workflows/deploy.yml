@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Aqui vai a chave privada SSH
           script: |
             # Navega até o diretório do projeto
-            cd /Docker
+            cd home/ubuntu/Docker
 
             # Parar e remover containers existentes
             docker-compose down

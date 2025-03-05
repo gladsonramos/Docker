@@ -58,13 +58,13 @@ const ChatApp = () => {
       }
     };
 
-    socket.onclose = () => {
+/*     socket.onclose = () => {
       console.log("🔴 Conexão WebSocket fechada");
-    };
+    }; */
 
-    socket.onerror = (error) => {
+/*     socket.onerror = (error) => {
       console.error("⚠️ Erro no WebSocket:", error);
-    };
+    }; */
 
     return () => {
       socket.close();

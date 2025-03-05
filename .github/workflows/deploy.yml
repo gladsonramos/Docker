@@ -16,18 +16,21 @@ jobs:
       - name: Conectar ao Servidor via SSH e Executar Deploy
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.SSH_HOST }}  # Esse valor é a URL do seu servidor
-          username: ${{ secrets.SSH_USER }}  # Esse valor é o usuário SSH
-          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Aqui vai a chave privada SSH
+          host: ${{ secrets.SSH_HOST }}  # URL do seu servidor
+          username: ${{ secrets.SSH_USER }}  # Usuário SSH
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Chave privada SSH
           script: |
             # Navega até o diretório do projeto
             cd /home/ubuntu/Docker
 
-            # Parar e remover containers existentes
-            docker-compose down
-
             # Puxa as últimas alterações do repositório
             git pull origin main
 
-            # Construa e inicie os containers Docker
-            docker-compose up -d --build
+            # Parar e remover containers existentes
+            docker-compose down
+
+            # Reconstruir e iniciar somente o serviço 'docker_frontend'
+            docker-compose up -d --build docker_frontend
+
+            # Reiniciar os outros serviços sem rebuild
+            docker-compose up -d

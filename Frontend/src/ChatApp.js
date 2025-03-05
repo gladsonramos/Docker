@@ -97,7 +97,7 @@ const ChatApp = () => {
         {!isUsernameSet ? (
           <>
             <Typography variant="h6" gutterBottom>
-              Com build ou sem build?
+              Com build ou sem build? sssss
             </Typography>
             <TextField
               fullWidth

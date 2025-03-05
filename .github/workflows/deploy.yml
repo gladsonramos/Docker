@@ -27,10 +27,10 @@ jobs:
             git pull origin main
 
             # Parar e remover containers existentes
-            docker-compose down
+            # docker-compose down
 
             # Reconstruir e iniciar somente o serviço 'docker_frontend'
-            docker-compose up -d --build frontend
+            # docker-compose up -d --build frontend
 
             # Reiniciar os outros serviços sem rebuild
             docker-compose up -d

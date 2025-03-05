@@ -12,15 +12,8 @@ import { setupWebSocket } from './websocket/websocket.js';
 dotenv.config();
 const app = express();
 
-// Middleware para CORS
-const corsOptions = {
-  origin: '*', // Permitir todas as origens (você pode restringir para domínios específicos)
-  methods: 'GET,HEAD,POST,PATCH,DELETE,PUT',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
 // Middleware
-app.use(cors(corsOptions)); // Passando as opções de CORS aqui
+app.use(cors()); // Passando as opções de CORS aqui
 app.use(express.json());
 
 // Conectar ao banco de dados e RabbitMQ
@@ -29,6 +22,11 @@ connectRabbitMQ();
 
 // Iniciar consumidor RabbitMq
 //consumeMessages();
+
+// Rota de boas-vindas
+app.get('/', (req, res) => {
+  res.send('🌟 Bem-vindo à API! O servidor está funcionando perfeitamente! 🌟');
+});
 
 // Rotas
 app.use('/api/users', userRoutes);
@@ -42,4 +40,4 @@ const server = http.createServer(app);
 setupWebSocket(server); // Inicia WebSocket aqui
 
 // Inicia o servidor HTTP
-server.listen(PORT, () => console.log(`✅ Servidor rodando na porta ${PORT}`)); 
+server.listen(PORT, () => console.log(`✅ Servidor rodando na porta ${PORT}`));

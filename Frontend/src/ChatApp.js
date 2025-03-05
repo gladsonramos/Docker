@@ -23,7 +23,7 @@ const ChatApp = () => {
   const API_BASE_URL = 'http://54.145.117.35'; // Alterar para o IP quando necessário
 
   // Conectar ao WebSocket e recuperar mensagens do servidor
-  
+
   useEffect(() => {
     //const socket = new WebSocket("ws://localhost:5000");
     const socket = new WebSocket(`${API_BASE_URL.replace("http", "ws")}:5000`);
@@ -59,13 +59,13 @@ const ChatApp = () => {
       }
     };
 
-/*     socket.onclose = () => {
-      console.log("🔴 Conexão WebSocket fechada");
-    }; */
+    /*     socket.onclose = () => {
+          console.log("🔴 Conexão WebSocket fechada");
+        }; */
 
-/*     socket.onerror = (error) => {
-      console.error("⚠️ Erro no WebSocket:", error);
-    }; */
+    /*     socket.onerror = (error) => {
+          console.error("⚠️ Erro no WebSocket:", error);
+        }; */
 
     return () => {
       socket.close();
@@ -97,7 +97,7 @@ const ChatApp = () => {
         {!isUsernameSet ? (
           <>
             <Typography variant="h6" gutterBottom>
-              Com build ou sem build? sssss
+              Com build ooque aconteceu
             </Typography>
             <TextField
               fullWidth

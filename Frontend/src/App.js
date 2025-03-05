@@ -5,7 +5,7 @@ import UserList from './components/UserList.jsx';
 import { Container, CircularProgress, Alert, TextField, Button, Checkbox, FormControlLabel, Box } from '@mui/material';
 
 // Defina a variável base da API
-const API_BASE_URL = 'http://54.145.117.35:5000'; // Alterar para o IP quando necessário
+const API_BASE_URL = 'http://54.145.17.35:5000'; // Alterar para o IP quando necessário
 
 const fetchUsers = async () => {
     const { data } = await axios.get(`${API_BASE_URL}/api/users`);

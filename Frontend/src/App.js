@@ -4,17 +4,18 @@ import axios from 'axios';
 import UserList from './components/UserList.jsx';
 import { Container, CircularProgress, Alert, TextField, Button, Checkbox, FormControlLabel, Box } from '@mui/material';
 
+// Defina a variável base da API
+const API_BASE_URL = 'http://54.145.117.35:5000'; // Alterar para o IP quando necessário
 
 const fetchUsers = async () => {
-    const { data } = await axios.get('http://localhost:5000/api/users');
+    const { data } = await axios.get(`${API_BASE_URL}/api/users`);
     return data;
 };
-
 
 const App = () => {
 
     const addUser = async (user) => {
-        const endpoint = isRota ? 'http://localhost:5000/api/users/rota' : 'http://localhost:5000/api/users';
+        const endpoint = isRota ? `${API_BASE_URL}/api/users/rota` : `${API_BASE_URL}/api/users`;
         const { data } = await axios.post(endpoint, user);
         return data;
     };
@@ -40,8 +41,6 @@ const App = () => {
         setName('');
         setEmail('');
     };
-
-
 
     return (
         <Container maxWidth="md" style={{ marginTop: '2rem' }}>

@@ -1,22 +1,11 @@
-# Usa a imagem do Node.js para construir o frontend
-FROM node:22 AS build
-
-# Define o diretório de trabalho dentro do container
-WORKDIR /app
-
-# Copia os arquivos do frontend para dentro do container
-COPY package.json package-lock.json ./
-RUN npm install --force
-
-# Copia o restante dos arquivos e faz o build
-COPY . .
-RUN npm run build
-
 # Usa a imagem do Nginx para servir os arquivos estáticos
 FROM nginx:latest
 
-# Copia os arquivos do build para a pasta padrão do Nginx
-COPY --from=build /app/build /usr/share/nginx/html
+# Define o diretório de trabalho dentro do container
+WORKDIR /usr/share/nginx/html
+
+# Copia os arquivos de build do seu computador local para o container
+COPY ./build /usr/share/nginx/html
 
 # Expõe a porta 80
 EXPOSE 80

@@ -30,7 +30,7 @@ jobs:
             docker-compose down
 
             # Reconstruir e iniciar somente o serviço 'docker_frontend'
-            docker-compose up -d --build docker_frontend
+            docker-compose up -d --build docker_frontend_1
 
             # Reiniciar os outros serviços sem rebuild
             docker-compose up -d

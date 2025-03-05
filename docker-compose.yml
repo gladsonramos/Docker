@@ -5,8 +5,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      DB_HOST: 172.17.0.1  # Nome exato do container PostgreSQL
-      DB_PORT: 5433  # Deve ser a porta interna do PostgreSQL
+      DB_HOST: my-postgres  # Nome exato do container PostgreSQL
+      DB_PORT: 5432  # Deve ser a porta interna do PostgreSQL
       DB_USER: postgres
       DB_PASSWORD: gladson
       DB_NAME: postgres

@@ -1,0 +1,26 @@
+2025-03-05T01:31:19.876Z - Novo arquivo criado: .env
+2025-03-05T01:31:19.880Z - Novo arquivo criado: docker-compose-sozinho.yml
+2025-03-05T01:31:19.883Z - Novo arquivo criado: monitor.js
+2025-03-05T01:31:19.886Z - Novo arquivo criado: docker-teste.yml
+2025-03-05T01:31:19.888Z - Novo arquivo criado: package-lock.json
+2025-03-05T01:31:19.891Z - Novo arquivo criado: Dockerfile
+2025-03-05T01:31:19.894Z - Novo arquivo criado: package.json
+2025-03-05T01:31:19.896Z - Novo arquivo criado: server.js
+2025-03-05T01:31:19.907Z - Novo arquivo criado: models\Messages.js
+2025-03-05T01:31:19.909Z - Novo arquivo criado: models\User.js
+2025-03-05T01:31:19.911Z - Novo arquivo criado: config\db.js
+2025-03-05T01:31:19.913Z - Novo arquivo criado: config\rabbitmq.js
+2025-03-05T01:31:19.917Z - Novo arquivo criado: routes\UserRoutes.js
+2025-03-05T01:31:19.919Z - Novo arquivo criado: routes\WebsocketRoutes.js
+2025-03-05T01:31:19.921Z - Novo arquivo criado: services\messageService.js
+2025-03-05T01:31:19.923Z - Novo arquivo criado: tasks\taskUser.js
+2025-03-05T01:31:19.930Z - Novo arquivo criado: websocket\websocket.js
+2025-03-05T01:31:19.933Z - Novo arquivo criado: workers\consumer.js
+2025-03-05T01:31:19.936Z - Novo arquivo criado: file_changes.log
+2025-03-05T01:31:19.940Z - Arquivo modificado: file_changes.log
+2025-03-05T01:31:35.959Z - Arquivo modificado: services\messageService.js
+2025-03-05T01:31:35.965Z - Arquivo modificado: file_changes.log
+2025-03-05T01:32:28.418Z - Arquivo modificado: monitor.js
+2025-03-05T01:32:28.429Z - Arquivo modificado: file_changes.log
+2025-03-05T01:32:34.954Z - Arquivo modificado: services\messageService.js
+2025-03-05T01:32:34.957Z - Arquivo modificado: file_changes.log

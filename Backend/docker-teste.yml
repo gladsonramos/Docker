@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      DB_HOST: my-postgres  # Nome exato do container PostgreSQL
+      DB_PORT: 5432  # Deve ser a porta interna do PostgreSQL
+      DB_USER: postgres
+      DB_PASSWORD: gladson
+      DB_NAME: postgres
+    depends_on:
+      my-postgres:
+        condition: service_healthy  # Aguarda até que o PostgreSQL esteja pronto
+    ports:
+      - "5000:5000"
+
+  my-postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: gladson
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"  # Porta exposta no host, mas a interna continua 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+
+volumes:
+  postgres_data:

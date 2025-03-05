@@ -97,7 +97,7 @@ const ChatApp = () => {
         {!isUsernameSet ? (
           <>
             <Typography variant="h6" gutterBottom>
-              Com build ooque aconteceu
+              Defina um nome para começar:
             </Typography>
             <TextField
               fullWidth

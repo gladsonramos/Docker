@@ -67,6 +67,11 @@ services:
       - "15672:15672" # Porta da interface de gerenciamento
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"] 
+      interval: 30s
+      retries: 5
+      timeout: 20s  
 
 volumes:
   postgres_data:

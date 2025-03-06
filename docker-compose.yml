@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   backend:
     build:
@@ -65,19 +63,8 @@ services:
     ports:
       - "5672:5672"   # Porta do RabbitMQ
       - "15672:15672" # Porta da interface de gerenciamento
-    networks:
-      - mynetwork  
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    healthcheck:
-      test: ["CMD", "rabbitmqctl", "status"]   # Comando para verificar o status do RabbitMQ
-      interval: 30s                             # Intervalo entre verificações de saúde
-      retries: 3                                # Tentativas antes de declarar o serviço como "não saudável"
-      timeout: 5s                               # Tempo máximo para aguardar a resposta do comando
-
-networks:
-  mynetwork:   # Definição da rede mynetwork
-    driver: bridge
 
 volumes:
   postgres_data:

@@ -7,7 +7,7 @@ import websocket from './routes/WebsocketRoutes.js';
 import connectDB from './config/db.js';
 import { connectRabbitMQ } from './config/rabbitmq.js';
 import { setupWebSocket } from './websocket/websocket.js';
-//import { consumeMessages } from './workers/consumer.js';
+import { consumeMessages } from './workers/consumer.js';
 
 dotenv.config();
 const app = express();

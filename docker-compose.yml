@@ -75,6 +75,10 @@ services:
       retries: 3                                # Tentativas antes de declarar o serviço como "não saudável"
       timeout: 5s                               # Tempo máximo para aguardar a resposta do comando
 
+networks:
+  mynetwork:   # Definição da rede mynetwork
+    driver: bridge
+
 volumes:
   postgres_data:
   rabbitmq_data:

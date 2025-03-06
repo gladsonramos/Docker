@@ -1,4 +1,5 @@
-version: '3'
+version: '3.8'
+
 services:
   backend:
     build:
@@ -6,18 +7,14 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      DB_HOST: my-postgres  # Nome do container PostgreSQL
-      DB_PORT: 5432
+      DB_HOST: my-postgres  # Nome exato do container PostgreSQL
+      DB_PORT: 5432  # Deve ser a porta interna do PostgreSQL
       DB_USER: postgres
       DB_PASSWORD: gladson
       DB_NAME: postgres
-      RABBITMQ_HOST: rabbitmq  # Adicionando a variável de ambiente para RabbitMQ
-      RABBITMQ_PORT: 5672     # Porta do RabbitMQ
     depends_on:
       my-postgres:
-        condition: service_healthy
-      rabbitmq:               # Dependência do RabbitMQ
-        condition: service_healthy
+        condition: service_healthy  # Aguarda até que o PostgreSQL esteja pronto
     ports:
       - "5000:5000"
 
@@ -27,7 +24,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "3000:80"
+      - "3000:80" # O React rodará na porta 3000, mas internamente o Nginx usa a porta 80
     depends_on:
       - backend    
 
@@ -72,10 +69,11 @@ services:
       - mynetwork  
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-
-networks:
-  mynetwork:
-    driver: bridge
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]   # Comando para verificar o status do RabbitMQ
+      interval: 30s                             # Intervalo entre verificações de saúde
+      retries: 3                                # Tentativas antes de declarar o serviço como "não saudável"
+      timeout: 5s                               # Tempo máximo para aguardar a resposta do comando
 
 volumes:
   postgres_data:

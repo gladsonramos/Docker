@@ -21,7 +21,7 @@ connectDB();
 connectRabbitMQ();
 
 // Iniciar consumidor RabbitMq
-//consumeMessages();
+consumeMessages();
 
 // Rota de boas-vindas
 app.get('/', (req, res) => {

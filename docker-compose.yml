@@ -63,6 +63,8 @@ services:
     ports:
       - "5672:5672"   # Porta do RabbitMQ
       - "15672:15672" # Porta da interface de gerenciamento
+    networks:
+      - mynetwork  
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 

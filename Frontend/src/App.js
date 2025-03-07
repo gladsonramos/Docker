@@ -79,7 +79,7 @@ const App = () => {
                 />
 
                 <Button type="submit" variant="contained" color="primary" fullWidth>
-                    Adicionar Usuário - Gladson
+                    Adicionar Usuário
                 </Button>
             </Box>
         </Container>

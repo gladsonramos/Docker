@@ -24,14 +24,15 @@ jobs:
         with:
           node-version: '22'
 
-      # Passo 4: Instalar dependências (ajustado se necessário)
+      # Passo 4: Instalar dependências no diretório Frontend
       - name: Install dependencies
-        run: npm install  # Ajuste conforme necessário
-        working-directory: ./frontend  # Ajuste o caminho do diretório, se necessário
+        run: npm install
+        working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
-      # Passo 5: Rodar o build do projeto
+      # Passo 5: Rodar o build do projeto no diretório Frontend
       - name: Build project
         run: npm run build
+        working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
       # Passo 6: Instalar WinSCP
       - name: Install WinSCP
@@ -42,7 +43,7 @@ jobs:
       # Passo 7: Configuração de Deploy com WinSCP
       - name: Deploy to Windows server
         run: |
-          winscp.com /command "open sftp://${{ secrets.WIN_SCP_USERNAME }}:${{ secrets.WIN_SCP_PASSWORD }}@legaldata.mtostes.com.br" "put ./build/* /C:/Node/" "exit"
+          winscp.com /command "open sftp://${{ secrets.WIN_SCP_USERNAME }}:${{ secrets.WIN_SCP_PASSWORD }}@legaldata.mtostes.com.br" "put ./Frontend/build/* /C:/Node/" "exit"
         env:
           WIN_SCP_PASSWORD: ${{ secrets.WIN_SCP_PASSWORD }}  # Senha do servidor Windows armazenada no GitHub Secrets
           WIN_SCP_USERNAME: ${{ secrets.WIN_SCP_USERNAME }}  # Usuário do servidor Windows armazenado no GitHub Secrets

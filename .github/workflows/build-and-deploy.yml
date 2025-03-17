@@ -34,38 +34,22 @@ jobs:
         run: npm run build
         working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
-      # Passo 6: Verificar o diretório de trabalho atual
-      - name: Verificar diretório de trabalho atual
-        run: |
-          echo "Diretório atual:"
-          pwd  # Verifica o diretório de trabalho atual
+      # Passo 6: Verificar o diretório de build no Frontend
+      - name: Verify build directory inside Frontend
+        run: ls ./Frontend/build  # Verificando dentro do diretório Frontend
 
-      # Passo 7: Verificar se o diretório 'Frontend/build' foi gerado após o build
-      - name: Listar conteúdo do diretório Frontend após o build
-        run: |
-          echo "Conteúdo do repositório após o build:"
-          ls -R ./Frontend  # Lista o conteúdo do diretório Frontend após o build
-
-     
-
-      # Passo 9: Compactar o diretório build em um arquivo zip
+      # Passo 7: Compactar o diretório build em um arquivo zip
       - name: Create build.zip
         run: |
           if [ -d "./Frontend/build" ]; then
-            zip -r ./Frontend/build.zip ./Frontend/build
+            zip -r ./Frontend/build.zip ./Frontend/build  # Compactando o diretório build dentro do Frontend
           else
-            echo "Diretório 'build' não encontrado!"
+            echo "Diretório 'build' não encontrado dentro de './Frontend'!"
             exit 1
           fi
-        working-directory: ./Frontend  # Certifique-se de que o arquivo build.zip será gerado corretamente
+        working-directory: .
 
-         # Passo 8: Verificar a existência do arquivo build.zip
-      - name: Verificar a existência do build.zip
-        run: |
-          echo "Verificando se o arquivo build.zip existe:"
-          ls ./Frontend/build.zip  # Verifica se o arquivo build.zip foi gerado no diretório correto
-
-      # Passo 10: Criar uma nova release no GitHub
+      # Passo 8: Criar uma nova release no GitHub
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
@@ -77,7 +61,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      # Passo 11: Fazer o upload do build para a release criada
+      # Passo 9: Fazer o upload do build para a release criada
       - name: Upload Build to GitHub Release
         uses: softprops/action-gh-release@v1
         with:

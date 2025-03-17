@@ -26,7 +26,7 @@ jobs:
 
       # Passo 4: Instalar dependências no diretório Frontend
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
         working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
       # Passo 5: Rodar o build do projeto no diretório Frontend

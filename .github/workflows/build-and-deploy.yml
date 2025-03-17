@@ -46,11 +46,7 @@ jobs:
           echo "Conteúdo do repositório após o build:"
           ls -R ./Frontend  # Lista o conteúdo do diretório Frontend após o build
 
-      # Passo 8: Verificar a existência do arquivo build.zip
-      - name: Verificar a existência do build.zip
-        run: |
-          echo "Verificando se o arquivo build.zip existe:"
-          ls ./Frontend/build.zip  # Verifica se o arquivo build.zip foi gerado no diretório correto
+     
 
       # Passo 9: Compactar o diretório build em um arquivo zip
       - name: Create build.zip
@@ -62,6 +58,12 @@ jobs:
             exit 1
           fi
         working-directory: ./Frontend  # Certifique-se de que o arquivo build.zip será gerado corretamente
+
+         # Passo 8: Verificar a existência do arquivo build.zip
+      - name: Verificar a existência do build.zip
+        run: |
+          echo "Verificando se o arquivo build.zip existe:"
+          ls ./Frontend/build.zip  # Verifica se o arquivo build.zip foi gerado no diretório correto
 
       # Passo 10: Criar uma nova release no GitHub
       - name: Create Release on GitHub

@@ -14,11 +14,9 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      # Passo 2: Listar o conteúdo do repositório para verificar se o diretório Frontend existe
+      # Passo 2: Listar os arquivos do repositório para verificar onde está o package.json
       - name: List repository contents
-        run: |
-          echo "Conteúdo do repositório:"
-          ls -R  # Listando todos os arquivos e pastas do repositório
+        run: ls -R
 
       # Passo 3: Configurar o Node.js
       - name: Set up Node.js
@@ -29,29 +27,32 @@ jobs:
       # Passo 4: Instalar dependências no diretório Frontend
       - name: Install dependencies
         run: npm install --force
-        working-directory: ./Frontend
+        working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
       # Passo 5: Rodar o build do projeto no diretório Frontend
       - name: Build project
         run: npm run build
-        working-directory: ./Frontend
+        working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
-      # Passo 6: Listar o conteúdo do repositório após o build
-      - name: List repository contents after build
+      # Passo 6: Verificar o diretório de trabalho atual
+      - name: Verificar diretório de trabalho atual
+        run: |
+          echo "Diretório atual:"
+          pwd  # Verifica o diretório de trabalho atual
+
+      # Passo 7: Verificar se o diretório 'Frontend/build' foi gerado após o build
+      - name: Listar conteúdo do diretório Frontend após o build
         run: |
           echo "Conteúdo do repositório após o build:"
-          ls -R  # Listando todos os arquivos e pastas do repositório
+          ls -R ./Frontend  # Lista o conteúdo do diretório Frontend após o build
 
-      # Passo 7: Verificar se o diretório 'build' foi gerado
-      - name: Verify build directory
+      # Passo 8: Verificar a existência do arquivo build.zip
+      - name: Verificar a existência do build.zip
         run: |
-          echo "Conteúdo do diretório Frontend após o build:"
-          ls ./Frontend  # Verificando o conteúdo da pasta Frontend
-          echo "Tentando acessar ./Frontend/build"
-          ls ./Frontend/build  # Tentando acessar o build
-        working-directory: ./Frontend
+          echo "Verificando se o arquivo build.zip existe:"
+          ls ./Frontend/build.zip  # Verifica se o arquivo build.zip foi gerado no diretório correto
 
-      # Passo 8: Compactar o diretório build em um arquivo zip
+      # Passo 9: Compactar o diretório build em um arquivo zip
       - name: Create build.zip
         run: |
           if [ -d "./Frontend/build" ]; then
@@ -60,13 +61,13 @@ jobs:
             echo "Diretório 'build' não encontrado!"
             exit 1
           fi
-        working-directory: ./Frontend
+        working-directory: ./Frontend  # Certifique-se de que o arquivo build.zip será gerado corretamente
 
-      # Passo 9: Criar uma nova release no GitHub
+      # Passo 10: Criar uma nova release no GitHub
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: 'v1.0.0'
+          tag_name: 'v1.0.0'  # A tag da release
           release_name: 'Release v1.0.0'
           body: 'Descrição da Release'
           draft: false
@@ -74,7 +75,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      # Passo 10: Fazer o upload do build para a release criada
+      # Passo 11: Fazer o upload do build para a release criada
       - name: Upload Build to GitHub Release
         uses: softprops/action-gh-release@v1
         with:

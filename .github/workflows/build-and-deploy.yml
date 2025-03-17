@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main   # Ou qualquer outra branch que você queira monitorar (ex: 'develop')
+      - main
 
 jobs:
   build:
@@ -14,23 +14,24 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      # Passo 2: Configurar o Node.js
+      # Passo 2: Listar os arquivos do repositório para verificar onde está o package.json
+      - name: List repository contents
+        run: ls -R
+
+      # Passo 3: Configurar o Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22'  # Ou qualquer versão do Node.js que você estiver usando
+          node-version: '22'
 
-      # Passo 3: Instalar dependências
+      # Passo 4: Instalar dependências (ajustado se necessário)
       - name: Install dependencies
-        run: npm install  # Usando npm install para garantir que todas as dependências sejam instaladas
+        run: npm install  # Ajuste conforme necessário
+        working-directory: ./frontend  # Ajuste o caminho do diretório, se necessário
 
-      # Passo 4: Rodar o build do projeto
+      # Passo 5: Rodar o build do projeto
       - name: Build project
-        run: npm run build  # Esse comando precisa estar configurado no seu package.json
-
-      # Passo 5: Verificar se o build foi gerado corretamente
-      - name: List build directory
-        run: ls -l ./build  # Verifique o conteúdo do diretório de build para garantir que os arquivos estão lá
+        run: npm run build
 
       # Passo 6: Instalar WinSCP
       - name: Install WinSCP

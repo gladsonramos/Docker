@@ -14,25 +14,30 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      # Passo 2: Listar os arquivos do repositório para verificar onde está o package.json
-      - name: List repository contents
-        run: ls -R
-
-      # Passo 3: Configurar o Node.js
+      # Passo 2: Configurar o Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '22'
 
+      # Passo 3: Cache de dependências
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
       # Passo 4: Instalar dependências no diretório Frontend
       - name: Install dependencies
-        run: npm install --force
-        working-directory: ./Frontend  # Corrigido para o diretório Frontend
+        run: npm ci
+        working-directory: ./Frontend
 
       # Passo 5: Rodar o build do projeto no diretório Frontend
       - name: Build project
         run: npm run build
-        working-directory: ./Frontend  # Corrigido para o diretório Frontend
+        working-directory: ./Frontend
 
       # Passo 6: Verificar o diretório de build no Frontend
       - name: Verify build directory inside Frontend
@@ -60,4 +65,4 @@ jobs:
           prerelease: false
           files: ./Frontend/build.zip  # Arquivo a ser incluído na release
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # Token de autenticação para a release

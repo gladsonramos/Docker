@@ -34,18 +34,17 @@ jobs:
         run: npm run build
         working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
-      # Passo 6: Verificar se o diretório 'build' foi gerado na raiz
-      - name: Verify build directory in the root
-        run: ls ./build  # Verificando na raiz
-        working-directory: .
+      # Passo 6: Verificar o diretório de build no Frontend
+      - name: Verify build directory inside Frontend
+        run: ls ./Frontend/build  # Verificando dentro do diretório Frontend
 
       # Passo 7: Compactar o diretório build em um arquivo zip
       - name: Create build.zip
         run: |
-          if [ -d "./build" ]; then
-            zip -r ./build.zip ./build  # Compactando na raiz, onde o build é gerado
+          if [ -d "./Frontend/build" ]; then
+            zip -r ./Frontend/build.zip ./Frontend/build  # Compactando o diretório build dentro do Frontend
           else
-            echo "Diretório 'build' não encontrado!"
+            echo "Diretório 'build' não encontrado dentro de './Frontend'!"
             exit 1
           fi
         working-directory: .
@@ -67,7 +66,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: 'v1.0.0'
-          asset_path: './build.zip'  # Caminho para o arquivo gerado
+          asset_path: './Frontend/build.zip'  # Caminho para o arquivo gerado
           asset_name: 'build.zip'
           asset_content_type: 'application/zip'
         env:

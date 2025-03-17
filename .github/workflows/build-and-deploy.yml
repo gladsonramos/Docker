@@ -34,16 +34,10 @@ jobs:
         run: npm run build
         working-directory: ./Frontend  # Corrigido para o diretório Frontend
 
-      # Passo 6: Instalar WinSCP
-      - name: Install WinSCP
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y winscp
-
-      # Passo 7: Configuração de Deploy com WinSCP
+      # Passo 6: Deploy para o servidor Windows utilizando SCP
       - name: Deploy to Windows server
         run: |
-          winscp.com /command "open sftp://${{ secrets.WIN_SCP_USERNAME }}:${{ secrets.WIN_SCP_PASSWORD }}@legaldata.mtostes.com.br" "put ./Frontend/build/* /C:/Node/" "exit"
+          scp -r ./Frontend/build/* ${WIN_SCP_USERNAME}@legaldata.mtostes.com.br:/C:/Node/
         env:
-          WIN_SCP_PASSWORD: ${{ secrets.WIN_SCP_PASSWORD }}  # Senha do servidor Windows armazenada no GitHub Secrets
-          WIN_SCP_USERNAME: ${{ secrets.WIN_SCP_USERNAME }}  # Usuário do servidor Windows armazenado no GitHub Secrets
+          WIN_SCP_USERNAME: ${{ secrets.WIN_SCP_USERNAME }}
+          WIN_SCP_PASSWORD: ${{ secrets.WIN_SCP_PASSWORD }}

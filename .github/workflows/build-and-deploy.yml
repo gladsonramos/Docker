@@ -10,64 +10,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Passo 1: Baixar o repositório
-      - name: Check out the repository
+      - name: Checkout the repository
         uses: actions/checkout@v2
 
-      # Passo 2: Listar os arquivos do repositório para verificar onde está o package.json
-      - name: List repository contents
-        run: ls -R
-
-      # Passo 3: Configurar o Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22'
+          node-version: '14'
 
-      # Passo 4: Instalar dependências no diretório Frontend
       - name: Install dependencies
-        run: npm install --force
-        working-directory: ./Frontend  # Corrigido para o diretório Frontend
+        run: npm install
+        working-directory: ./Frontend
 
-      # Passo 5: Rodar o build do projeto no diretório Frontend
-      - name: Build project
+      - name: Build the project
         run: npm run build
-        working-directory: ./Frontend  # Corrigido para o diretório Frontend
+        working-directory: ./Frontend
 
-      # Passo 6: Verificar o diretório de build no Frontend
-      - name: Verify build directory inside Frontend
-        run: ls ./Frontend/build  # Verificando dentro do diretório Frontend
+      - name: Create ZIP of build folder
+        run: zip -r build.zip ./Frontend/build
 
-      # Passo 7: Compactar o diretório build em um arquivo zip
-      - name: Create build.zip
-        run: |
-          if [ -d "./Frontend/build" ]; then
-            zip -r ./Frontend/build.zip ./Frontend/build  # Compactando o diretório build dentro do Frontend
-          else
-            echo "Diretório 'build' não encontrado dentro de './Frontend'!"
-            exit 1
-          fi
-        working-directory: .
-
-      # Passo 8: Criar uma nova release no GitHub
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: 'v1.0.0'  # A tag da release
+          tag_name: 'v1.0.0'
           release_name: 'Release v1.0.0'
-          body: 'Descrição da Release'
-          draft: false
-          prerelease: false
+          body: 'Release description'
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Passo 9: Fazer o upload do build para a release criada
-      - name: Upload Build to GitHub Release
+      - name: Upload build to release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: 'v1.0.0'
-          asset_path: './Frontend/build.zip'  # Caminho para o arquivo gerado
+          asset_path: './build.zip'
           asset_name: 'build.zip'
           asset_content_type: 'application/zip'
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -29,20 +29,20 @@ jobs:
       # Passo 4: Instalar dependências no diretório Frontend
       - name: Install dependencies
         run: npm install --force
-        working-directory: ./Frontend  # Corrigido para o diretório Frontend
+        working-directory: ./Frontend
 
       # Passo 5: Rodar o build do projeto no diretório Frontend
       - name: Build project
         run: npm run build
-        working-directory: ./Frontend  # Corrigido para o diretório Frontend
+        working-directory: ./Frontend
 
       # Passo 6: Verificar se o diretório 'build' foi gerado
       - name: Verify build directory
         run: |
-          echo "Conteúdo do diretório Frontend:"
+          echo "Conteúdo do diretório Frontend após o build:"
           ls ./Frontend  # Verificando o conteúdo da pasta Frontend
           echo "Tentando acessar ./Frontend/build"
-          ls ./Frontend/build  # Tentar acessar o build, caso ele exista
+          ls ./Frontend/build  # Tentando acessar o build
         working-directory: ./Frontend
 
       # Passo 7: Compactar o diretório build em um arquivo zip
@@ -54,13 +54,13 @@ jobs:
             echo "Diretório 'build' não encontrado!"
             exit 1
           fi
-        working-directory: ./Frontend  # Certifique-se de que o arquivo build.zip será gerado corretamente
+        working-directory: ./Frontend
 
       # Passo 8: Criar uma nova release no GitHub
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: 'v1.0.0'  # A tag da release
+          tag_name: 'v1.0.0'
           release_name: 'Release v1.0.0'
           body: 'Descrição da Release'
           draft: false

@@ -36,7 +36,13 @@ jobs:
         run: npm run build
         working-directory: ./Frontend
 
-      # Passo 6: Verificar se o diretório 'build' foi gerado
+      # Passo 6: Listar o conteúdo do repositório após o build
+      - name: List repository contents after build
+        run: |
+          echo "Conteúdo do repositório após o build:"
+          ls -R  # Listando todos os arquivos e pastas do repositório
+
+      # Passo 7: Verificar se o diretório 'build' foi gerado
       - name: Verify build directory
         run: |
           echo "Conteúdo do diretório Frontend após o build:"
@@ -45,7 +51,7 @@ jobs:
           ls ./Frontend/build  # Tentando acessar o build
         working-directory: ./Frontend
 
-      # Passo 7: Compactar o diretório build em um arquivo zip
+      # Passo 8: Compactar o diretório build em um arquivo zip
       - name: Create build.zip
         run: |
           if [ -d "./Frontend/build" ]; then
@@ -56,7 +62,7 @@ jobs:
           fi
         working-directory: ./Frontend
 
-      # Passo 8: Criar uma nova release no GitHub
+      # Passo 9: Criar uma nova release no GitHub
       - name: Create Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
@@ -68,7 +74,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      # Passo 9: Fazer o upload do build para a release criada
+      # Passo 10: Fazer o upload do build para a release criada
       - name: Upload Build to GitHub Release
         uses: softprops/action-gh-release@v1
         with:

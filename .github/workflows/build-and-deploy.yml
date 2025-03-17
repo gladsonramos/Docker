@@ -31,7 +31,7 @@ jobs:
 
       # Passo 4: Instalar dependências no diretório Frontend
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --force
         working-directory: ./Frontend
 
       # Passo 5: Rodar o build do projeto no diretório Frontend

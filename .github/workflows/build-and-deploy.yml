@@ -14,9 +14,11 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      # Passo 2: Listar os arquivos do repositório para verificar onde está o package.json
+      # Passo 2: Listar o conteúdo do repositório para verificar se o diretório Frontend existe
       - name: List repository contents
-        run: ls -R
+        run: |
+          echo "Conteúdo do repositório:"
+          ls -R  # Listando todos os arquivos e pastas do repositório
 
       # Passo 3: Configurar o Node.js
       - name: Set up Node.js

@@ -36,7 +36,7 @@ jobs:
           release_name: 'Release v1.0.0'
           body: 'Release description'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Upload build to release
         uses: softprops/action-gh-release@v1
@@ -46,4 +46,4 @@ jobs:
           asset_name: 'build.zip'
           asset_content_type: 'application/zip'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}

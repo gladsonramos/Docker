@@ -11,33 +11,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Passo 1: Clonar o repositório
       - name: Check out repository
         uses: actions/checkout@v2
 
+      # Passo 2: Configurar o Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
+      # Passo 3: Instalar dependências
       - name: Install dependencies
         run: npm install --force
 
+      # Passo 4: Construir o projeto
       - name: Build project
         run: npm run build
 
+      # Passo 5: Criar uma nova release no GitHub
       - name: Create Release on GitHub
-        uses: gh-actions/create-release@v1.0.0
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: 'v1.0.0'  # A tag da release
           release_name: 'Release v1.0.0'
           body: 'Descrição da Release'
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Passo 6: Fazer o upload do build para a release criada
       - name: Upload Build to GitHub Release
-        uses: gh-actions/upload-release-asset@v1.0.0
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: 'v1.0.0'
           asset_path: './build.zip'  # Caminho para o arquivo gerado
           asset_name: 'build.zip'
           asset_content_type: 'application/zip'
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}

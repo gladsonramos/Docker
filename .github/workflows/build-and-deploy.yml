@@ -22,7 +22,7 @@ jobs:
 
       # Passo 3: Cache de dependências
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3  # Versão atualizada para v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}

@@ -1,0 +1,43 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main   # Ou qualquer outra branch que você queira monitorar (ex: 'develop')
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Baixar o repositório
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      # Passo 2: Configurar o Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'  # Ou qualquer versão do Node.js que você estiver usando
+
+      # Passo 3: Instalar dependências
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false
+
+      # Passo 4: Rodar o build do projeto
+      - name: Build project
+        run: npm run build
+
+      # Passo 5: Instalar WinSCP
+      - name: Install WinSCP
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y winscp
+
+      # Passo 6: Configuração de Deploy com WinSCP
+      - name: Deploy to Windows server
+        run: |
+         winscp.com /command "open sftp://${{ secrets.WIN_SCP_USERNAME }}:${{ secrets.WIN_SCP_PASSWORD }}@legaldata.mtostes.com.br" "put ./build/* /C:/Node/" "exit"
+        env:
+          WIN_SCP_PASSWORD: ${{ secrets.WIN_SCP_PASSWORD }}  # Senha do servidor Windows armazenada no GitHub Secrets
+          WIN_SCP_USERNAME: ${{ secrets.WIN_SCP_USERNAME }}  # Usuário do servidor Windows armazenado no GitHub Secrets

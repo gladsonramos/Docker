@@ -36,8 +36,12 @@ jobs:
 
       # Passo 6: Verificar se o diretório 'build' foi gerado
       - name: Verify build directory
-        run: ls ./Frontend/build
-        working-directory: ./Frontend
+  run: |
+    echo "Conteúdo do diretório Frontend:"
+    ls ./Frontend  # Verificando o conteúdo da pasta Frontend
+    echo "Tentando acessar ./Frontend/build"
+    ls ./Frontend/build  # Tentar acessar o build, caso ele exista
+  working-directory: ./Frontend
 
       # Passo 7: Compactar o diretório build em um arquivo zip
       - name: Create build.zip
